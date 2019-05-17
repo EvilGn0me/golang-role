@@ -1,0 +1,6 @@
+---
+# vars file for golang-role
+golang:
+  goroot: '/opt/golang'
+  installdir: '/usr/share/golang-{{ golang_conf.version }}'
+  download_url: 'https://storage.googleapis.com/golang/go{{ golang_conf.version }}.linux-amd64.tar.gz'

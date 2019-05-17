@@ -1,0 +1,5 @@
+---
+# defaults file for golang-role
+golang_conf:
+  version: '1.11'
+  gopath: '/srv/golang'

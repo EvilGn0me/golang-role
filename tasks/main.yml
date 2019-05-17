@@ -1,0 +1,30 @@
+---
+# tasks file for golang-role
+
+- name: create dirs
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+  with_items:
+    - '{{ golang.installdir }}'
+
+- name: download golang
+  unarchive:
+    src: '{{ golang.download_url }}'
+    dest: '{{ golang.installdir }}'
+    creates: '{{ golang.installdir }}/bin/go'
+    extra_opts: [--strip-components=1]
+    remote_src: yes
+
+- name: manage go alternatives
+  alternatives:
+    name: golang
+    link: '{{ golang.goroot }}'
+    path: '{{ golang.installdir }}'
+
+- name: add gopath to path
+  template:
+    src: templates/golang.sh
+    dest: /etc/profile.d/golang.sh
